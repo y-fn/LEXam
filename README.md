@@ -2,19 +2,22 @@
 This Repo provides code for evaluating LLMs on LExBench. LExBench is a comprehensive benchmark evaluating AI system's legal reasoning ability with law exam questions. It has two subsets of open questions and multiple-choice questions. -->
 
 
-<div style="text-align: center;">
-  <table style="margin: auto;">
+<div style="text-align: center; border: none; outline: none; margin: 0; padding: 0;">
+  <table style="margin: auto; border: none; border-collapse: collapse;">
     <tr>
-      <td><img src="pictures/logo.png" alt="LExBench Logo" width="120"></td>
-      <td>
-        <h1 style="margin-bottom: 0;">LExBench: Benchmark Legal Reasoning with Legal Exams</h1>
+      <td style="border: none; padding: 0; vertical-align: middle;">
+        <img src="pictures/logo.png" alt="LExBench Logo" style="max-height: 70px; vertical-align: middle;">
+      </td>
+      <td style="border: none; padding-left: 10px; vertical-align: middle;">
+        <h1 style="margin-bottom: 0; font-size: 24px;">LExBench: Benchmark Legal Reasoning with Legal Exams</h1>
         <p style="margin-top: 6px;">A diverse, rigorous evaluation suite for legal AI from Swiss Legal Exams.</p>
       </td>
     </tr>
   </table>
 </div>
 
-## This Repo provides code for evaluating LLMs on LExBench. [[Huggingface Dataset]](https://huggingface.co/datasets/JingweiNi/LExBench) [[Paper]]()
+
+### This Repo provides code for evaluating LLMs on LExBench. [[Huggingface Dataset]](https://huggingface.co/datasets/JingweiNi/LExBench) [[Paper]]()
 
 ## 🔥 News
 - [2025/05] Release of the first version of paper, where we evaluate 20+ representative SoTA LLMs with evaluations stricly verified by legal experts.
