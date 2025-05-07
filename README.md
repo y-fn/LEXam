@@ -1,17 +1,10 @@
-<div style="text-align: center;">
-  <table style="margin: auto; border-collapse: collapse; border: none;">
-    <tr>
-      <td style="border: none; padding: 0; margin: 0;">
-        <img src="pictures/logo.png" alt="LExBench Logo" width="120" style="border: none; display: block;">
-      </td>
-      <td style="border: none; padding: 0; margin: 0;">
-        <h1 style="margin-bottom: 0; margin-top: 0;">LExBench: Benchmark Legal Reasoning with Legal Exams</h1>
-        <p style="margin-top: 6px;">A diverse, rigorous evaluation suite for legal AI from Swiss Legal Exams.</p>
-      </td>
-    </tr>
-  </table>
+<div align="center" style="display: flex; align-items: center; justify-content: center; gap: 16px;">
+  <img src="pictures/logo.png" alt="LExBench Logo" width="120" style="border: none;">
+  <div style="text-align: left;">
+    <h1 style="margin: 0;">LExBench: Benchmark Legal Reasoning with Legal Exams</h1>
+    <p style="margin: 6px 0 0;">A diverse, rigorous evaluation suite for legal AI from Swiss Legal Exams.</p>
+  </div>
 </div>
-
 
 ### This Repo provides code for evaluating LLMs on LExBench. [[Huggingface Dataset]](https://huggingface.co/datasets/JingweiNi/LExBench) [[Paper]]()
 
