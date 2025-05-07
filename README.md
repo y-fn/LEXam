@@ -1,18 +1,10 @@
-<!-- # LExBench
-This Repo provides code for evaluating LLMs on LExBench. LExBench is a comprehensive benchmark evaluating AI system's legal reasoning ability with law exam questions. It has two subsets of open questions and multiple-choice questions. -->
-
-<div style="text-align: center;">
-  <table style="margin: auto; border: none;">
-    <tr>
-      <td style="border: none;"><img src="pictures/logo.png" alt="LExBench Logo" width="120"></td>
-      <td style="border: none;">
-        <h1 style="margin-bottom: 0;">LExBench: Benchmark Legal Reasoning with Legal Exams</h1>
-        <p style="margin-top: 6px;">A diverse, rigorous evaluation suite for legal AI from Swiss Legal Exams.</p>
-      </td>
-    </tr>
-  </table>
+<div align="center" style="display: flex; align-items: center; justify-content: center; gap: 16px;">
+  <img src="pictures/logo.png" alt="LExBench Logo" width="120" style="border: none;">
+  <div style="text-align: left;">
+    <h1 style="margin: 0;">LExBench: Benchmark Legal Reasoning with Legal Exams</h1>
+    <p style="margin: 6px 0 0;">A diverse, rigorous evaluation suite for legal AI from Swiss Legal Exams.</p>
+  </div>
 </div>
-
 
 ### This Repo provides code for evaluating LLMs on LExBench. [[Huggingface Dataset]](https://huggingface.co/datasets/JingweiNi/LExBench) [[Paper]]()
 
