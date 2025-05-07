@@ -1,12 +1,11 @@
-<!-- # LExBench
-This Repo provides code for evaluating LLMs on LExBench. LExBench is a comprehensive benchmark evaluating AI system's legal reasoning ability with law exam questions. It has two subsets of open questions and multiple-choice questions. -->
-
 <div style="text-align: center;">
-  <table style="margin: auto; border: none;">
+  <table style="margin: auto; border-collapse: collapse; border: none;">
     <tr>
-      <td style="border: none;"><img src="pictures/logo.png" alt="LExBench Logo" width="120"></td>
-      <td style="border: none;">
-        <h1 style="margin-bottom: 0;">LExBench: Benchmark Legal Reasoning with Legal Exams</h1>
+      <td style="border: none; padding: 0; margin: 0;">
+        <img src="pictures/logo.png" alt="LExBench Logo" width="120" style="border: none; display: block;">
+      </td>
+      <td style="border: none; padding: 0; margin: 0;">
+        <h1 style="margin-bottom: 0; margin-top: 0;">LExBench: Benchmark Legal Reasoning with Legal Exams</h1>
         <p style="margin-top: 6px;">A diverse, rigorous evaluation suite for legal AI from Swiss Legal Exams.</p>
       </td>
     </tr>
