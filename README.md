@@ -6,7 +6,7 @@
   </div>
 </div>
 
-### This Repo provides code for evaluating LLMs on LExBench. [[Huggingface Dataset]](https://huggingface.co/datasets/JingweiNi/LExBench) [[Paper]]()
+### This Repo provides code for evaluating LLMs on LEXam. [[Huggingface Dataset]](https://huggingface.co/datasets/JingweiNi/LExBench) [[Paper]]()
 
 ## 🔥 News
 - [2025/05] Release of the first version of paper, where we evaluate 20+ representative SoTA LLMs with evaluations stricly verified by legal experts.
