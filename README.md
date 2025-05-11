@@ -82,3 +82,8 @@ python customized_judge_async.py --input_file lexbench_oq_${MODEL}.csv --output_
 ```
 - `--input_file`: Grade DeepSeek-R1's answer to open questions. Grading results at `lexbench_oq_deepseek-reasoner_graded.csv`
 
+### Licenses
+
+- **Code** is licensed under the [Apache License 2.0](LICENSE).
+- **Data** is licensed under the [Creative Commons Attribution 4.0 International License](LICENSE_DATA).
+
