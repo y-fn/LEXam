@@ -1,8 +1,8 @@
 <div align="center" style="display: flex; align-items: center; justify-content: center; gap: 16px;">
   <img src="pictures/logo.png" alt="LExBench Logo" width="120" style="border: none;">
   <div style="text-align: left;">
-    <h1 style="margin: 0;">LExBench: Benchmark Legal Reasoning with Legal Exams</h1>
-    <p style="margin: 6px 0 0;">A diverse, rigorous evaluation suite for legal AI from Swiss Legal Exams.</p>
+    <h1 style="margin: 0;">LEXam: Benchmarking Legal Reasoning on 340 Law Exams</h1>
+    <p style="margin: 6px 0 0;">A diverse, rigorous evaluation suite for legal AI from Swiss, EU, and international law examinations.</p>
   </div>
 </div>
 
