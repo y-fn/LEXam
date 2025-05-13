@@ -84,6 +84,6 @@ python customized_judge_async.py --input_file lexam_oq_${MODEL}.csv --output_fil
 
 ## Licenses
 
-- **Code** is licensed under the [Apache License 2.0](LICENSE).
-- **Data** is licensed under the [Creative Commons Attribution 4.0 International License](LICENSE_DATA).
+- The **Code** in this repository is licensed under the [Apache License 2.0](LICENSE).
+- The **Data** in this repository is licensed under the [Creative Commons Attribution 4.0 International License](LICENSE_DATA).
 
