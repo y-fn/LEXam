@@ -23,7 +23,7 @@
 # ruff: noqa: F405, F403, F401
 """
 This module contains task configurations and prompt functions for evaluating
-LLM models on the LExBench dataset.
+LLM models on the LEXam dataset.
 
 Author: Jingwei Ni
 """
@@ -163,7 +163,7 @@ FEW_SHOT = {
 }
 
 
-class JudgeLExBench(JudgeLLM):
+class JudgeLEXam(JudgeLLM):
 
     def compute(
         self,
@@ -197,14 +197,14 @@ def process_judge_response_grade_gpt(x):
     return answer
 
 
-def get_lexbench_law_exam_judge(
+def get_lexam_law_exam_judge(
     judge_model_name: str = "openai/gpt-4o-mini-2024-07-18" if USE_MINI else "openai/gpt-4o-2024-11-20",
     short_judge_name: str = "exam_judge_gpt-4o-mini" if USE_MINI else "exam_judge_gpt-4o",
     backend: str = "litellm",
     system_style: str = JUDGE_PROMPT_KEY,  # basic or 20250310
     few_shot_style: str = "no",
 ):
-    def lexbench_law_exam_judge(question, options, answer, gold):
+    def lexam_law_exam_judge(question, options, answer, gold):
         system_prompt = JUDGE_SYSTEM[system_style]
         user = JUDGE_USER[system_style]
         few_shot_examples = FEW_SHOT[few_shot_style]
@@ -232,9 +232,9 @@ Your Judgment:
         higher_is_better={short_judge_name: True},
         category=MetricCategory.LLM_AS_JUDGE,
         use_case=MetricUseCase.NONE,
-        sample_level_fn=JudgeLExBench(
+        sample_level_fn=JudgeLEXam(
             judge_model_name=judge_model_name,
-            template=lexbench_law_exam_judge,
+            template=lexam_law_exam_judge,
             process_judge_response=process_judge_response_grade_gpt,
             judge_backend=backend,
             short_judge_name=short_judge_name,
@@ -298,7 +298,7 @@ METRICS = {}
 
 def init_llm_judge_metric(metric_name: str):
     if metric_name == "exam_judge_gpt-4o":
-        METRICS["exam_judge_gpt-4o"] = get_lexbench_law_exam_judge(
+        METRICS["exam_judge_gpt-4o"] = get_lexam_law_exam_judge(
             judge_model_name="openai/gpt-4o-mini-2024-07-18" if USE_MINI else "openai/gpt-4o-2024-11-20",
             short_judge_name="exam_judge_gpt-4o-mini" if USE_MINI else "exam_judge_gpt-4o",
         )
@@ -310,7 +310,7 @@ def init_llm_judge_metric(metric_name: str):
                 short_judge_name = f"exam_judge_{judge_model}-{system_style}-{few_shot_style}"
                 judge_metric_name = short_judge_name.replace("-", "_")
                 if metric_name == judge_metric_name:
-                    METRICS[metric_name] = get_lexbench_law_exam_judge(
+                    METRICS[metric_name] = get_lexam_law_exam_judge(
                         judge_model_name=JUDGE_MODELS[judge_model],
                         short_judge_name=short_judge_name,
                         system_style=system_style,
@@ -370,15 +370,15 @@ class ExamQATask(LightevalTaskConfig):
 
 
 # STORE YOUR EVALS
-LExBenchQA = DatasetConfig(
-    name="lexbenchoq",
-    hf_repo="JingweiNi/LExBench",
+LEXamQA = DatasetConfig(
+    name="lexamoq",
+    hf_repo="JingweiNi/LEXam",
     subsets=['open_question'],
 )
 
 # list of all the subsets to use for this eval
 DATASETS = [
-    LExBenchQA,
+    LEXamQA,
 ]
 
 TASKS_TABLE = [

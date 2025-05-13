@@ -1,0 +1,107 @@
+{
+  "config_general": {
+    "lighteval_sha": "?",
+    "num_fewshot_seeds": 1,
+    "override_batch_size": -1,
+    "max_samples": 2,
+    "job_id": 0,
+    "start_time": 18058.2085698,
+    "end_time": 18098.126461,
+    "total_evaluation_time_secondes": "39.91789119999885",
+    "model_name": "openai/gpt-4o-mini-2024-07-18",
+    "model_sha": "",
+    "model_dtype": null,
+    "model_size": ""
+  },
+  "results": {
+    "community|lexbenchoq_open_question|0": {
+      "exam_judge_gpt-4o-20250324-no": 40.0,
+      "exam_judge_gpt-4o-20250324-no_stderr": 10.0
+    },
+    "all": {
+      "exam_judge_gpt-4o-20250324-no": 40.0,
+      "exam_judge_gpt-4o-20250324-no_stderr": 10.0
+    }
+  },
+  "versions": {
+    "community|lexbenchoq_open_question|0": 0
+  },
+  "config_tasks": {
+    "community|lexbenchoq_open_question": {
+      "name": "lexbenchoq_open_question",
+      "prompt_function": "prompt_fn",
+      "hf_repo": "JingweiNi/LExBench",
+      "hf_subset": "open_question",
+      "metric": [
+        {
+          "metric_name": [
+            "exam_judge_gpt-4o-20250324-no"
+          ],
+          "higher_is_better": {
+            "exam_judge_gpt-4o-20250324-no": true
+          },
+          "category": "7",
+          "use_case": "10",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": {
+            "exam_judge_gpt-4o-20250324-no": "mean"
+          }
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": null,
+      "hf_avail_splits": [
+        "dev",
+        "test"
+      ],
+      "trust_dataset": true,
+      "evaluation_splits": [
+        "test"
+      ],
+      "few_shots_split": "validation",
+      "few_shots_select": "sequential",
+      "generation_size": 4096,
+      "generation_grammar": null,
+      "stop_sequence": [
+        "</s>"
+      ],
+      "num_samples": null,
+      "suite": [
+        "community"
+      ],
+      "original_num_docs": 2541,
+      "effective_num_docs": 2,
+      "must_remove_duplicate_docs": false,
+      "version": 0
+    }
+  },
+  "summary_tasks": {
+    "community|lexbenchoq_open_question|0": {
+      "hashes": {
+        "hash_examples": "c44c497f463f828b",
+        "hash_full_prompts": "9546105e263b240a",
+        "hash_input_tokens": "a08b62da192214e4",
+        "hash_cont_tokens": "a08b62da192214e4"
+      },
+      "truncated": 0,
+      "non_truncated": 2,
+      "padded": 0,
+      "non_padded": 2,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    }
+  },
+  "summary_general": {
+    "hashes": {
+      "hash_examples": "d1ee9674eb9b2213",
+      "hash_full_prompts": "c44f32073cce0ca5",
+      "hash_input_tokens": "5df0f0b4503117d4",
+      "hash_cont_tokens": "5df0f0b4503117d4"
+    },
+    "truncated": 0,
+    "non_truncated": 2,
+    "padded": 0,
+    "non_padded": 2,
+    "num_truncated_few_shots": 0
+  }
+}

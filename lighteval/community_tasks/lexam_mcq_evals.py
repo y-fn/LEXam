@@ -23,7 +23,7 @@
 # ruff: noqa: F405, F403, F401
 """
 This module contains task configurations and prompt functions for evaluating
-LLM models on the LExBench dataset.
+LLM models on the LEXam dataset.
 
 Author: Jingwei Ni
 """
@@ -163,7 +163,7 @@ mc_acc_metric = SampleLevelMetricGrouping(
 )
 
 
-class LExBenchMCQTask(LightevalTaskConfig):
+class LEXamMCQTask(LightevalTaskConfig):
     def __init__(
         self,
         name,
@@ -173,7 +173,7 @@ class LExBenchMCQTask(LightevalTaskConfig):
             name=f'{name}_{hf_subset}',
             hf_subset=hf_subset,
             prompt_function=prompt_fn,
-            hf_repo="JingweiNi/LExBench",
+            hf_repo="JingweiNi/LEXam",
             hf_avail_splits=["test"],
             evaluation_splits=["test"],
             few_shots_split=None,
@@ -186,7 +186,7 @@ class LExBenchMCQTask(LightevalTaskConfig):
         )
 
 
-TASKS_TABLE = [LExBenchMCQTask(name="lexbenchmcq", hf_subset="mcq_4_choices")]
+TASKS_TABLE = [LEXamMCQTask(name="lexammcq", hf_subset="mcq_4_choices")]
 
 if __name__ == "__main__":
     print(t.name for t in TASKS_TABLE)
