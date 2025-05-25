@@ -9,7 +9,7 @@
 ### This repository provides code for evaluating LLMs on ***LEXam***. [[Huggingface Dataset]](https://huggingface.co/datasets/LEXam-Benchmark/LEXam) [[Paper]](https://arxiv.org/abs/2505.12864)
 
 ## 🔥 News
-- [2025/05] Release of the first version of paper, where we evaluate 20+ representative SoTA LLMs with evaluations stricly verified by legal experts.
+- [2025/05] Release of the first version of paper, where we evaluate representative SoTA LLMs with evaluations stricly verified by legal experts.
 
 ## 🚀🔄 Reproducing Paper results or Evaluating your own LLM
 
