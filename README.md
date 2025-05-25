@@ -6,7 +6,7 @@
   </div>
 </div>
 
-### This Repo provides code for evaluating LLMs on LEXam. [[Huggingface Dataset]](https://huggingface.co/datasets/LEXam-Benchmark/LEXam) [[Paper]](https://arxiv.org/abs/2505.12864)
+### This Repo provides code for evaluating LLMs on ***LEXam***. [[Huggingface Dataset]](https://huggingface.co/datasets/LEXam-Benchmark/LEXam) [[Paper]](https://arxiv.org/abs/2505.12864)
 
 ## 🔥 News
 - [2025/05] Release of the first version of paper, where we evaluate 20+ representative SoTA LLMs with evaluations stricly verified by legal experts.
@@ -87,9 +87,9 @@ python customized_judge_async.py --input_file lexam_oq_${MODEL}.csv --output_fil
 - The **Code** in this repository is licensed under the [Apache License 2.0](LICENSE).
 - The **Data** in this repository is licensed under the [Creative Commons Attribution 4.0 International License](LICENSE_DATA).
 
-## Citations
+## Citation
 
-If you find the dataset, our paper, or this repository helpful, please consider citing our paper: 
+If you find the dataset, our paper, or this repository helpful, please consider citing ***LEXam***: 
 ```shell
 @article{fan2025lexam,
   title={LEXam: Benchmarking Legal Reasoning on 340 Law Exams},
