@@ -89,7 +89,7 @@ python customized_judge_async.py --input_file lexam_oq_${MODEL}.csv --output_fil
 
 ## Citation
 
-If you find the dataset, our paper, or this repository helpful, please consider citing ***LEXam***: 
+If you find our dataset helpful, please consider citing ***LEXam***: 
 ```shell
 @article{fan2025lexam,
   title={LEXam: Benchmarking Legal Reasoning on 340 Law Exams},
