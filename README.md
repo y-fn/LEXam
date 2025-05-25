@@ -87,3 +87,16 @@ python customized_judge_async.py --input_file lexam_oq_${MODEL}.csv --output_fil
 - The **Code** in this repository is licensed under the [Apache License 2.0](LICENSE).
 - The **Data** in this repository is licensed under the [Creative Commons Attribution 4.0 International License](LICENSE_DATA).
 
+## Citations
+
+If you find the dataset, our paper, or this repository helpful, please consider citing our paper: 
+```shell
+@article{fan2025lexam,
+  title={LEXam: Benchmarking Legal Reasoning on 340 Law Exams},
+  author={Fan, Yu and Ni, Jingwei and Merane, Jakob and Salimbeni, Etienne and Tian, Yang and Hermstr{\"u}wer, Yoan and Huang, Yinya and Akhtar, Mubashara and Geering, Florian and Dreyer, Oliver and others},
+  journal={arXiv preprint arXiv:2505.12864},
+  year={2025}
+}
+```
+
+
