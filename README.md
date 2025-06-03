@@ -16,7 +16,7 @@
 
 ### Environment Preparation
 ```shell
-git clone https://github.com/EdisonNi-hku/LEXam
+git clone https://github.com/LEXam-Benchmark/LEXam
 cd LEXam
 conda create -n lexam python=3.11
 conda activate lexam
