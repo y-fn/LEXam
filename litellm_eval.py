@@ -22,12 +22,17 @@ MODEL_DICT = {
     'llama_70': "together_ai/meta-llama/Llama-3.3-70B-Instruct-Turbo",
     'llama4_maverick': "together_ai/meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
     'gemma3': "together_ai/google/gemma-3-12b-it",
+    'gpt-4.1-mini': 'gpt-4.1-mini-2025-04-14',
+    'gpt-4.1-nano': 'gpt-4.1-nano-2025-04-14',
+    'qwen3_235B': 'together_ai/Qwen/Qwen3-235B-A22B-fp8-tput'
 }
 INPUT_COST_DICT = {
     'o1': 15,
     'o3-mini': 1.1,
     'gpt-4o-mini': 0.15,
     'gpt-4o': 2.5,
+    'gpt-4.1-mini': 0.4,
+    'gpt-4.1-nano': 0.1,
     # 'deepseek-chat': 0.27,
     # 'deepseek-reasoner': 0.55,
     'deepseek-chat': 1.25,
@@ -39,12 +44,15 @@ INPUT_COST_DICT = {
     'llama_70': 0.88,
     'llama4_maverick': 0.27,
     'gemma3': 0.3,
+    'qwen3_235B': 0.2,
 }
 OUTPUT_COST_DICT = {
     'o1': 60,
     'o3-mini': 4.4,
     'gpt-4o-mini': 0.6,
     'gpt-4o': 10,
+    'gpt-4.1-mini': 1.6,
+    'gpt-4.1-nano': 0.4,
     # 'deepseek-chat': 1.10,
     # 'deepseek-reasoner': 2.19,
     'deepseek-chat': 1.25,
@@ -56,8 +64,11 @@ OUTPUT_COST_DICT = {
     'llama_70': 0.88,
     'llama4_maverick': 0.85,
     'gemma3': 0.3,
+    'qwen3_235B': 0.6,
 }
 GENE_ARGS_DICT = {
+    'gpt-4.1-mini': {'temperature': 0, 'max_tokens': 4096},
+    'gpt-4.1-nano': {'temperature': 0, 'max_tokens': 4096},
     'gpt-4o-mini': {'temperature': 0, 'max_tokens': 4096},
     'deepseek-reasoner': {'temperature': 0.6, 'max_tokens': 8192},
     'qwq-32b': {'temperature': 0.6, 'top_p': 0.95, 'max_tokens': 8192},
@@ -69,6 +80,7 @@ GENE_ARGS_DICT = {
     'llama_70': {'temperature': 0, 'max_tokens': 4096},
     'llama4_maverick': {'temperature': 0, 'max_tokens': 4096},
     'gemma3': {'temperature': 0, 'max_tokens': 4096},
+    'qwen3_235B': {'temperature': 0.6, 'top_p': 0.95, 'top_k': 20, 'max_tokens': 8192},
 }
 
 
@@ -214,7 +226,8 @@ async def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_file", type=str, required=True)
     parser.add_argument("--cache_name", type=str, default='openai')
-    parser.add_argument("--instruction_field", type=str, default='Question')
+    parser.add_argument("--instruction_field", type=str, default='question')
+    parser.add_argument("--answer_field", type=str, default='answer')
     parser.add_argument("--llm", type=str, default="gpt-4o-mini")
     parser.add_argument("--sample", type=int, default=-1)
     parser.add_argument("--batch_size", type=int, default=5)
@@ -227,7 +240,7 @@ async def main():
         assert isinstance(p, str)
         prompts.append([{'role': 'user', 'content': p}])
 
-    gold_answers = input_df['Answer'].tolist()
+    gold_answers = input_df[args.answer_field].tolist()
     if args.sample > 0:
         prompts = prompts[:args.sample]
         gold_answers = gold_answers[:args.sample]
