@@ -69,8 +69,8 @@ python -m lighteval vllm "pretrained=${MODEL},trust_remote_code=True,dtype=bfloa
 Reasoning LLMs generate both a <think> scratch pad and the final answer after </think>. To only evaluate the answer, we do not use lighteval for reasoning LLMs.
 ```shell
 MODEL="deepseek-reasoner"
-python litellm_eval.py --input_file data/LFQA_test.xlsx --cache_name r1 --llm $MODEL --output_file lexam_oq_${MODEL}.csv --batch_size 2
-python litellm_eval.py --input_file data/MCQA_test.xlsx --cache_name r1 --llm $MODEL --output_file lexam_mcq_${MODEL}.csv --batch_size 2
+python litellm_eval.py --input_file data/open_questions_test.xlsx --cache_name r1 --llm $MODEL --output_file lexam_oq_${MODEL}.csv --batch_size 2
+python litellm_eval.py --input_file data/MCQs_test.xlsx --cache_name r1 --llm $MODEL --output_file lexam_mcq_${MODEL}.csv --batch_size 2 --answer_field gold
 ```
 - `MODEL` can be set to any model included in `MODEL_DICT` of `litellm_eval.py`, e.g., `o1`, `o3-mini`, `qwq-32b`.
 - `--output_file`: DeepSeek-R1's answer to open/MC questions will be at `lexam_oq_deepseek-reasoner.csv` and `lexam_mcq_deepseek-reasoner.csv`
