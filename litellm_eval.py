@@ -292,10 +292,11 @@ async def create_answers_async(model, messages, cache_path, generation_args, bat
 async def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_file", type=str, required=True)
-    parser.add_argument("--task_type", type=str, required=True, choices=['mcq_numbers', 'mcq_letters', 'qa'])
+    parser.add_argument("--task_type", type=str, required=True, choices=['mcq_numbers', 'mcq_letters', 'open_questions'])
     parser.add_argument("--cache_name", type=str, default='openai')
     parser.add_argument("--question_field", type=str, default='question')
     parser.add_argument("--answer_field", type=str, default='answer')
+    parser.add_argument("--choices_field", type=str, default='choices')
     parser.add_argument("--llm", type=str, default="gpt-4o-mini")
     parser.add_argument("--sample", type=int, default=-1)
     parser.add_argument("--batch_size", type=int, default=5)
@@ -316,7 +317,7 @@ async def main():
                 formated_question += f'\n{letter_list[i]}. {c}'
             formatted_questions.append(formated_question)
         for q, course_name in zip(formatted_questions, course_names):
-            prompts.append(MCQ_PROMPT['letters'].format(course_name=course_name, question=q))
+            prompts.append([{'role': 'user', 'content': MCQ_PROMPT['letters'].format(course_name=course_name, question=q)}])
     elif args.task_type == 'mcq_numbers':
         choices = [ast.literal_eval(c) if isinstance(c, str) else c for c in input_df[args.choices_field].tolist()]
         formatted_questions = []
@@ -326,14 +327,15 @@ async def main():
                 formated_question += f'\n{i + 1}. {c}'
             formatted_questions.append(formated_question)
         for q, course_name in zip(formatted_questions, course_names):
-            prompts.append(MCQ_PROMPT['numbers'].format(course_name=course_name, question=q))
+            prompts.append([{'role': 'user', 'content': MCQ_PROMPT['numbers'].format(course_name=course_name, question=q)}])
     else:
         for q, course_name in zip(questions, course_names):
-            prompts.append(QA_PROMPT.format(course_name=course_name, question=q))
+            prompts.append([{'role': 'user', 'content': QA_PROMPT.format(course_name=course_name, question=q)}])
 
     gold_answers = input_df[args.answer_field].tolist()
     if args.sample > 0:
         prompts = prompts[:args.sample]
+        questions = questions[:args.sample]
         gold_answers = gold_answers[:args.sample]
 
     total_cost = 0

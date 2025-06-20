@@ -69,19 +69,27 @@ python -m lighteval vllm "pretrained=${MODEL},trust_remote_code=True,dtype=bfloa
 Reasoning LLMs generate both a <think> scratch pad and the final answer after </think>. To only evaluate the answer, we do not use lighteval for reasoning LLMs.
 ```shell
 MODEL="deepseek-reasoner"
-python litellm_eval.py --input_file data/open_questions_test.xlsx --cache_name r1 --llm $MODEL --output_file lexam_oq_${MODEL}.csv --batch_size 2 --task_type op
+python litellm_eval.py --input_file data/open_questions_test.xlsx --cache_name r1 --llm $MODEL --output_file lexam_oq_${MODEL}.csv --batch_size 2 --task_type open_quesitons
 python litellm_eval.py --input_file data/MCQs_test.xlsx --cache_name r1 --llm $MODEL --output_file lexam_mcq_${MODEL}.csv --batch_size 2 --answer_field gold --task_type mcq_letters
 ```
 - `MODEL` can be set to any model included in `MODEL_DICT` of `litellm_eval.py`, e.g., `o1`, `o3-mini`, `qwq-32b`.
 - `--output_file`: DeepSeek-R1's answer to open/MC questions will be at `lexam_oq_deepseek-reasoner.csv` and `lexam_mcq_deepseek-reasoner.csv`
+- `--task_type`: chose from ['mcq_letters', 'mcq_numbers', 'open_questions']. mcq_letters and _numbers differ by using ABCD or 1234 as choice labels.
 
-Then evaluate the answers using our expert-verified LLM judge.
+Then evaluate the answers using our expert-verified LLM judge. This script will print the Mean and bootstrapped Variance of open question performance.
 ```shell
 MODEL="deepseek-reasoner"
 python customized_judge_async.py --input_file lexam_oq_${MODEL}.csv --output_file lexam_oq_${MODEL}_graded.csv --async_call --cache_name gpt4o --llm gpt-4o
 ```
 - `--input_file`: Grade DeepSeek-R1's answer to open questions. Grading results at `lexam_oq_deepseek-reasoner_graded.csv`
 
+
+Finally evaluate the accuracy of MCQs. This script will print accuracy and bootstrapped variance. No LLM call is involved in this script.
+```shell
+MODEL="deepseek-reasoner"
+INPUT_FILE="lexam_mcq_${MODEL}.csv"
+python evaluation.py --input_file $INPUT_FILE --response_field ${MODEL}_answer --task_type mcq_letters
+```
 ## Licenses
 
 - The **Code** in this repository is licensed under the [Apache License 2.0](LICENSE).

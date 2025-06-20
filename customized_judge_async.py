@@ -11,6 +11,7 @@ import openai
 from litellm import completion, acompletion
 import litellm
 import traceback
+import numpy as np
 
 # litellm.set_verbose = True
 # litellm._turn_on_debug()
@@ -270,7 +271,7 @@ def main(args):
             if model_name not in SKIP_MODELS:
                 model_names.append(model_name)
 
-    fact_questions = df['Facts_Question'].tolist()
+    fact_questions = df['question'].tolist()
     gold_answers = df['gold_answer'].tolist()
     litellm_chat = LiteLLMChat(model_name=args.llm, cache_name=args.cache_name, generation_args=GENE_ARGS_DICT[args.llm])
     for model in tqdm(model_names, total=len(model_names), desc="Model Progress"):
@@ -292,6 +293,13 @@ def main(args):
 
         df[f'{model}_{args.llm}_judge'] = responses
         df[f'{model}_{args.llm}_scores'] = scores
+        # Compute mean and bootstrap variance
+        flat_scores = np.array([sublist[0] for sublist in scores])
+        mean_score = np.mean(flat_scores)
+        n = len(flat_scores)
+        boot_means = [np.mean(np.random.choice(flat_scores, n, replace=True)) for _ in range(1000)]
+        variance = np.var(boot_means)
+        print(f"Model: {model}, Mean Score: {mean_score}, Bootstrap Variance: {variance}")
         df.to_csv(args.output_file, encoding='utf-8', index=False)
 
 
@@ -332,6 +340,13 @@ async def async_main(args):
 
         df[f'{model}_{args.llm}_judge'] = responses
         df[f'{model}_{args.llm}_scores'] = scores
+        # Compute mean and bootstrap variance
+        flat_scores = np.array([sublist[0] for sublist in scores])
+        mean_score = np.mean(flat_scores)
+        n = len(flat_scores)
+        boot_means = [np.mean(np.random.choice(flat_scores, n, replace=True)) for _ in range(1000)]
+        variance = np.var(boot_means)
+        print(f"Model: {model}, Mean Score: {mean_score}, Bootstrap Variance: {variance}")
         df.to_csv(args.output_file, encoding='utf-8', index=False)
 
 
