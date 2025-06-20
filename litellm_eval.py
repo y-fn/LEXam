@@ -5,8 +5,75 @@ import asyncio
 import sys
 import argparse
 import pandas as pd
+import ast
 from tqdm import tqdm
 from litellm import completion, acompletion
+
+
+QA_PROMPT = """You are an expert in {course_name} and address legal issues in a structured, exam-style manner.
+Assume Swiss law applies unless specifically mentioned; if the course context justifies, address legal issues beyond Swiss law as well.
+Use precise legal language and formal "Sie" when answering.
+Do NOT state any disclaimer or refer to the need for external legal advice.
+Do NOT request the user to consult laws or to research on their own.
+Offer focused legal analyses and individualized advice.
+Speak directly and authoritatively without mentioning that your response is merely for general information.
+Incorporate Swiss-specific legal terminology.
+If you have discovered relevant legal considerations (Erwägungen), respond with a concise, clear legal analysis.
+Cite only from your identified considerations.
+Always cite the specific legal provision, explicitly indicating paragraphs (Abs.), numbers (Ziff.), or letters (lit.) where available (e.g., “'Art. 74 Abs. 2 Ziff. 2 OR”, “Art. 336 lit. a StGB”). Avoid general references (such as 'Art. 3 ZGB') without mentioning the specific paragraph, number, or letter, if applicable.
+If no relevant considerations are found, explicitly state that no pertinent information is available.
+If you do have reliable sources, share practical guidance or insights from them.
+Respond in the same language as the question.
+If the question specifically requests a short answer, provide a concise response.
+If the prompt asks you to analyze a specific case provided in the exam, but the text or details of that case have not been provided in the prompt, explicitly flag that the required case material is missing.
+
+Question:
+{question}
+
+Answer:"""
+
+
+MCQ_PROMPT = {
+    "letters": """You are an expert in {course_name} and address legal issues in a structured, exam-style manner.
+You are given a multiple-choice question, where only one choice (e.g., A, B, C, etc.) is correct.
+Assume Swiss law applies unless specifically stated otherwise. If the context of the course justifies it, consider legal frameworks beyond Swiss law as well.
+
+Please reason through the question step by step, using a chain-of-thought approach:
+- Clarify the facts: Briefly restate or highlight the key facts in the question to anchor your reasoning.
+- Issue Identification: What legal issue(s) arise from the facts?
+- Rule Explanation: What legal rules or principles are relevant, and what are their sources (e.g., statutes, case law, doctrine)?
+- Application and Reasoning: Apply the relevant rules to the facts, carefully weighing any ambiguities, exceptions, or competing interpretations.
+- Eliminate Incorrect Answers: Briefly explain why each incorrect answer is wrong or less convincing.
+- Conclusion: Clearly state the correct answer choice (e.g., A, B, C, etc.) with a brief justification for why it best fits the legal analysis.
+
+Format your final answer as follows:
+ Correct Answer: ###C### 
+
+Question:
+ {question}
+
+Answer:""",
+    "numbers": """You are an expert in {course_name} and address legal issues in a structured, exam-style manner.
+You are given a multiple-choice question, where only one choice (e.g., 1, 2, 3, etc.) is correct.
+Assume Swiss law applies unless specifically stated otherwise. If the context of the course justifies it, consider legal frameworks beyond Swiss law as well.
+
+Please reason through the question step by step, using a chain-of-thought approach:
+- Clarify the facts: Briefly restate or highlight the key facts in the question to anchor your reasoning.
+- Issue Identification: What legal issue(s) arise from the facts?
+- Rule Explanation: What legal rules or principles are relevant, and what are their sources (e.g., statutes, case law, doctrine)?
+- Application and Reasoning: Apply the relevant rules to the facts, carefully weighing any ambiguities, exceptions, or competing interpretations.
+- Eliminate Incorrect Answers: Briefly explain why each incorrect answer is wrong or less convincing.
+- Conclusion: Clearly state the correct answer choice (e.g., 1, 2, 3, etc.) with a brief justification for why it best fits the legal analysis.
+
+Format your final answer as follows:
+ Correct Answer: ###3### 
+
+Question:
+ {question}
+
+Answer:""",
+}
+
 
 MODEL_DICT = {
     'o1': 'o1',
@@ -225,8 +292,9 @@ async def create_answers_async(model, messages, cache_path, generation_args, bat
 async def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_file", type=str, required=True)
+    parser.add_argument("--task_type", type=str, required=True, choices=['mcq_numbers', 'mcq_letters', 'qa'])
     parser.add_argument("--cache_name", type=str, default='openai')
-    parser.add_argument("--instruction_field", type=str, default='question')
+    parser.add_argument("--question_field", type=str, default='question')
     parser.add_argument("--answer_field", type=str, default='answer')
     parser.add_argument("--llm", type=str, default="gpt-4o-mini")
     parser.add_argument("--sample", type=int, default=-1)
@@ -236,9 +304,32 @@ async def main():
 
     input_df = pd.read_excel(args.input_file)
     prompts = []
-    for p in input_df[args.instruction_field]:
-        assert isinstance(p, str)
-        prompts.append([{'role': 'user', 'content': p}])
+    questions = input_df[args.question_field].tolist()
+    course_names = input_df['course'].tolist()
+    if args.task_type == 'mcq_letters':
+        letter_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+        choices = [ast.literal_eval(c) if isinstance(c, str) else c for c in input_df[args.choices_field].tolist()]
+        formatted_questions = []
+        for q, c, course_name in zip(questions, choices, course_names):
+            formated_question = q
+            for i, c in enumerate(c):
+                formated_question += f'\n{letter_list[i]}. {c}'
+            formatted_questions.append(formated_question)
+        for q, course_name in zip(formatted_questions, course_names):
+            prompts.append(MCQ_PROMPT['letters'].format(course_name=course_name, question=q))
+    elif args.task_type == 'mcq_numbers':
+        choices = [ast.literal_eval(c) if isinstance(c, str) else c for c in input_df[args.choices_field].tolist()]
+        formatted_questions = []
+        for q, c, course_name in zip(questions, choices, course_names):
+            formated_question = q
+            for i, c in enumerate(c):
+                formated_question += f'\n{i + 1}. {c}'
+            formatted_questions.append(formated_question)
+        for q, course_name in zip(formatted_questions, course_names):
+            prompts.append(MCQ_PROMPT['numbers'].format(course_name=course_name, question=q))
+    else:
+        for q, course_name in zip(questions, course_names):
+            prompts.append(QA_PROMPT.format(course_name=course_name, question=q))
 
     gold_answers = input_df[args.answer_field].tolist()
     if args.sample > 0:
