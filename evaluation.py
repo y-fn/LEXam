@@ -25,9 +25,9 @@ if __name__ == '__main__':
     df = pd.read_csv(args.input_file)
     ground_truth = df['gold_answer'].tolist()
     if args.task_type == 'mcq_letters':
-        predictions = df[args.response_field].apply(extract_letter).tolist()
         letter2num = {l: i for i, l in enumerate(string.ascii_uppercase)}
-        predictions = [letter2num[p] for p in predictions]
+        predictions = df[args.response_field].apply(extract_letter).tolist()
+        predictions = ['None' if p is None else letter2num[p] for p in predictions]
         correctness = [p == g for p, g in zip(predictions, ground_truth)]
         accuracy = sum(correctness) / len(correctness)
         # Bootstrap variance
@@ -38,6 +38,7 @@ if __name__ == '__main__':
         print(f'Bootstrap Variance: {variance}')
     elif args.task_type == 'mcq_numbers':
         predictions = [p-1 for p in df[args.response_field].apply(extract_number)]
+        predictions = [-1 if p is None else p for p in predictions]
         correctness = [p == g for p, g in zip(predictions, ground_truth)]
         accuracy = sum(correctness) / len(correctness)
         # Bootstrap variance

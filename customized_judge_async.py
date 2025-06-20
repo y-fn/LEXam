@@ -314,7 +314,7 @@ async def async_main(args):
             if model_name not in SKIP_MODELS:
                 model_names.append(model_name)
 
-    fact_questions = df['Facts_Question'].tolist()
+    fact_questions = df['question'].tolist()
     gold_answers = df['gold_answer'].tolist()
     for model in tqdm(model_names, total=len(model_names), desc="Model Progress"):
         model_answers = df[f'{model}_answer'].tolist()
