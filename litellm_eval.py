@@ -351,6 +351,7 @@ async def main():
     print(len(prompts), len(responses))
     output_df = pd.DataFrame({
         'prompt': [p[0]['content'] for p in prompts],
+        'question': questions,
         'gold_answer': gold_answers,
         f'{args.llm}_answer': responses,
     })
