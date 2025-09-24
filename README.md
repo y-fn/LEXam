@@ -6,13 +6,14 @@
   </div>
 </div>
 
-### This repository provides code for evaluating LLMs on ***LEXam***. [[Dataset]](https://github.com/y-fn/LEXam/tree/main/data)
+### This repository provides code for evaluating LLMs on ***LEXam***. [[Dataset]](https://anonymous.4open.science/r/LEXam-B7B0/data)
+
 
 ## 🚀🔄 Reproducing Paper results or Evaluating your own LLM
 
 ### Environment Preparation
 ```shell
-git clone https://github.com/LEXam-Benchmark/LEXam
+git clone https://anonymous.4open.science/r/LEXam-B7B0 # real link removed for anonymity
 cd LEXam
 conda create -n lexam python=3.11
 conda activate lexam
@@ -22,7 +23,8 @@ cd ..
 pip install -r requirements.txt
 
 # Set API keys for inference and evaluation.
-# For the current example code, OpenAI key is mandatory, as we use GPT-4o as expert-verified grader to illustrate the pipeline.
+# For the current example code, OpenAI key is mandatory,
+# as we use GPT-4o as expert-verified grader to illustrate the pipeline.
 EXPORT OPENAI_API_KEY="xxx"
 EXPORT TOGETHER_API_KEY="xxx"
 EXPORT DEEPSEEK_API_KEY="xxx"
