@@ -6,7 +6,7 @@
   </div>
 </div>
 
-### This repository provides code for evaluating LLMs on ***LEXam***. [Dataset]](https://github.com/y-fn/LEXam/tree/main/data)
+### This repository provides code for evaluating LLMs on ***LEXam***. [[Dataset]](https://github.com/y-fn/LEXam/tree/main/data)
 
 ## 🚀🔄 Reproducing Paper results or Evaluating your own LLM
 
