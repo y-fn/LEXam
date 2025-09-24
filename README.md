@@ -22,7 +22,7 @@ cd ..
 pip install -r requirements.txt
 
 # Set API keys for inference and evaluation.
-# OpenAI key is mandatory for our expert-verified grader, which is based on GPT-4o
+# For the current example code, OpenAI key is mandatory, as we use GPT-4o as expert-verified grader to illustrate the pipeline.
 EXPORT OPENAI_API_KEY="xxx"
 EXPORT TOGETHER_API_KEY="xxx"
 EXPORT DEEPSEEK_API_KEY="xxx"
