@@ -16,7 +16,7 @@
 
 ### Environment Preparation
 ```shell
-git clone https://anonymous.4open.science/r/LEXam-B7B0 # real link removed for anonymity
+git clone https://anonymous.4open.science/r/LEXam-DB15 # real link removed for anonymity
 cd LEXam
 conda create -n lexam python=3.11
 conda activate lexam
