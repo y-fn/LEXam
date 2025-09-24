@@ -9,7 +9,7 @@
 ### This repository provides code for evaluating LLMs on ***LEXam***. 
 
 ### Dataset
-- ***LEXam*** open questions: [dev set](https://github.com/y-fn/LEXam/blob/main/data/open_questions_dev.xlsx); [test set](https://github.com/y-fn/LEXam/blob/main/data/open_questions_test.xlsx)
+- ***LEXam*** open questions: [test set](https://github.com/y-fn/LEXam/blob/main/data/open_questions_test.xlsx); [dev set](https://github.com/y-fn/LEXam/blob/main/data/open_questions_dev.xlsx)
 - ***LEXam*** multiple-choice questions: [test set](https://github.com/y-fn/LEXam/blob/main/data/MCQs_test.xlsx); [test set with perturbation](https://github.com/y-fn/LEXam/blob/main/data/MCQs_test_perturbation.xlsx)
   
 ## 🚀🔄 Reproducing Paper results or Evaluating your own LLM
